@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" Functrion matrix_shape """
 def matrix_shape(matrix):
     """ return the shape of a matrix """
     a = []

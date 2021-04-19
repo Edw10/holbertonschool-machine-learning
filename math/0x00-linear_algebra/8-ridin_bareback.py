@@ -14,5 +14,5 @@ def mat_mul(mat1, mat2):
             for x in range(len(mat1[0])):
                 y += mat1[i][x] * mat2[x][j]
             aux.append(y)
-            new_mat.append(aux)
+        new_mat.append(aux)
     return new_mat

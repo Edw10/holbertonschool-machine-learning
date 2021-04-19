@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-def matrix_shape(matrix=[]):
+def matrix_shape(matrix):
     a = []
     while type(matrix) is not int:
         a.append(len(matrix))

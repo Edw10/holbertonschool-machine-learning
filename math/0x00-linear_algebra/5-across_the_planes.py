@@ -9,8 +9,7 @@ def add_matrices2D(mat1, mat2):
     a.append([])
     if len(mat1) == len(mat2) == 2 and len(mat1[0]) == len(mat2[0]) == 2:
         for i in range(2):
-            a[0].append(mat1[0][i]+mat2[0][i])
-            a[1].append(mat1[1][i]+mat2[1][i])
+            print("hola")
         return a
     else:
         return None

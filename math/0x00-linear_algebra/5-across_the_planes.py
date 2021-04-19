@@ -13,4 +13,4 @@ def add_matrices2D(mat1, mat2):
             a[1].append(mat1[1][i]+mat2[1][i])
         return a
     else:
-        return "None"
+        return None

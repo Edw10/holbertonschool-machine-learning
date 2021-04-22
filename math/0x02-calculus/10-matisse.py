@@ -4,7 +4,7 @@
 
 def poly_derivative(poly):
     """ poly pocket """
-    if len(poly) == 0 or type(poly) != list:
+    if len(poly) == 0:
         return None
     for i in poly:
         if type(i) != int and type(i) != float:

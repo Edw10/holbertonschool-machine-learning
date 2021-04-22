@@ -6,6 +6,8 @@ def poly_derivative(poly):
     """ poly pocket """
     if len(poly) == 0:
         return None
+    if all(not isinstance(x, (int, float)) for x in poly):
+        return None
     d = []    
     if len(poly) == 1:
         return [0]

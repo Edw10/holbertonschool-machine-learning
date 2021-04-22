@@ -7,7 +7,7 @@ def poly_derivative(poly):
     if len(poly) == 0:
         return None
     d = []
-    if all(isinstance(x, int) for x in poly):    
+    if all(isinstance(x, int, long, float) for x in poly):    
         if len(poly) == 1:
             return [0]
         for i in range(1, len(poly)):

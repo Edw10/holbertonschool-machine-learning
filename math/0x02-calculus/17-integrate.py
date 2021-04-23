@@ -4,7 +4,7 @@
 
 def poly_integral(poly, C=0):
     """ poly pocket """
-    if type(poly) != list or len(poly) == 0:
+    if type(poly) != list:
         return None
     d = [C]
     for i in range(0, len(poly)):

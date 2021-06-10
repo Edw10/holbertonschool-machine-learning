@@ -7,6 +7,7 @@ import tensorflow as tf
 def lenet5(x, y):
     """
     Builds a modified version of the LeNet-5 architecture using tensorflow
+
         :param x: tf.placeholder of shape (m, 28, 28, 1)
         containing the input images for the network
         :param y: tf.placeholder of shape (m, 10)
@@ -17,30 +18,35 @@ def lenet5(x, y):
         a tensor for the loss of the netowrk
         a tensor for the accuracy of the network
     """
-    m, h_new, w_new, c_new = dA.shape
-    _, h_prev, w_prev, c = A_prev.shape
-    kh, kw = kernel_shape
-    sh, sw = stride
+    init = tf.contrib.layers.variance_scaling_initializer()
 
-    dA_prev = np.zeros(A_prev.shape)
+    C1 = tf.layers.Conv2D(filters=6,
+                          kernel_size=(5, 5),
+                          activation=tf.nn.relu,
+                          kernel_initializer=init)(S2)
 
-    for m in range(m):
-        for h in range(h_new):
-            for w in range(w_new):
-                i = h * sh
-                j = w * sw
-                for c in range(c_new):
-                    frame = A_prev[m, i: i + kh, j: j + kw, c]
+    S4 = tf.layers.MaxPooling2D(pool_size=(2, 2),
+                                strides=(2, 2))(C3)
 
-                    if mode == 'max':
-                        kernel = np.zeros(kernel_shape)
-                        frame_max = np.amax(frame)
-                        np.copyto(kernel, 1, where=(frame == frame_max))
-                        dA_prev[m, i: i + kh, j: j + kw, c] +=\
-                            kernel * dA[m, h, w, c]
-                    elif mode == 'avg':
-                        avg = dA[m, h, w, c] / kh / kw
-                        kernel = np.ones(kernel_shape)
-                        dA_prev[m, i: i + kh, j: j + kw, c] += avg * kernel
+    S4 = tf.layers.Flatten()(S4)
 
-    return dA_prev
+    F5 = tf.layers.Dense(units=120,
+                         activation=tf.nn.relu,
+                         kernel_initializer=init)(S4)
+
+    F6 = tf.layers.Dense(units=84,
+                         activation=tf.nn.relu,
+                         kernel_initializer=init)(F5)
+
+    out = tf.layers.Dense(units=10,
+                          kernel_initializer=init)(F6)
+
+    y_hat = tf.nn.softmax(out)
+    y_hat_t = tf.argmax(y_hat, 1)
+    y_t = tf.argmax(y, 1)
+    loss = tf.losses.softmax_cross_entropy(y, out)
+    train_op = tf.train.AdamOptimizer().minimize(loss)
+    comparison = tf.equal(y_hat_t, y_t)
+    acc = tf.reduce_mean(tf.cast(comparison, tf.float32))
+
+    return y_hat, train_op, loss, acc

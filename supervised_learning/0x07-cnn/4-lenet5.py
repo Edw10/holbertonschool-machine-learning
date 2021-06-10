@@ -24,7 +24,7 @@ def lenet5(x, y):
                           kernel_size=(5, 5),
                           padding='same',
                           activation=tf.nn.relu,
-                          kernel_initializer=init)(S2)
+                          kernel_initializer=init)(x)
 
     S2 = tf.layers.MaxPooling2D(pool_size=(2, 2),
                                 strides=(2, 2))(C1)

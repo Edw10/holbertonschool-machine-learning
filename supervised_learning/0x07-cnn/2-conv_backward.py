@@ -53,8 +53,8 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     dA[m, i: i + kh, j: j + kw, :] +=\
                         dZ[m, h, w, c] * W[:, :, :, c]
 
-                dW[:, :, :, c] +=\
-                    in_padded[m, i: i + kh, j: j + kw, :] * dZ[m, h, w, c]
+                    dW[:, :, :, c] +=\
+                        in_padded[m, i: i + kh, j: j + kw, :] * dZ[m, h, w, c]
 
     dA = dA[:, ph:dA.shape[1] - ph, pw:dA.shape[2] - pw, :]
     return dA, dW, db

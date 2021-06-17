@@ -9,7 +9,9 @@ def projection_block(A_prev, filters, s=2):
     """the keras model"""
     F11, F3, F12 = filters
     conv1 = K.layers.Conv2D(filters=F11,
-                            kernel_size=(1, 1),padding="same",
+                            kernel_size=(1, 1),
+                            padding="same",
+                            kernel_initializer="he_normal",
                             strides=(s, s))(A_prev)
     BN1 = K.layers.BatchNormalization(axis=3)(conv1)
     Relu1 = K.layers.Activation("relu")(BN1)
